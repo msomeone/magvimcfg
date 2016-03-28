@@ -1,0 +1,461 @@
+
+" 
+" Entry point: http://mirnazim.org/writings/vim-plugins-i-use/
+"
+"
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" UPCOMING PLUGINS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" VimOutliner: https://github.com/vimoutliner/vimoutliner
+" UltiSnips: https://github.com/sirver/ultisnips
+" Unimpaired: https://github.com/tpope/vim-unimpaired
+" Sensible: https://github.com/tpope/vim-sensible
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ABANDONED PLUGINS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" YouCompleteMe: https://github.com/Valloric/YouCompleteMe
+" Buffergator: https://github.com/jeetsukumaran/vim-buffergator
+" SuperTab: https://github.com/ervandew/supertab
+" DelimitMate: https://github.com/Raimondi/delimitMate (http://aftnn.org/post/75730734352/vim-auto-closers-compared)
+" AutoPairs: https://github.com/jiangmiao/auto-pairs.git (bug with russian keymap)
+ 
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" GENERAL SETTINGS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Need to set this flag on in order to have many cool features on
+set nocompatible
+
+" Language and encoding
+set encoding=utf-8
+
+if !has('gui_win32')
+    set keymap=russian-jcukenwin
+endif
+
+set iminsert=0
+set imsearch=0
+
+" Source project files
+set exrc
+set secure
+
+" No more annoying sounds
+set visualbell
+
+"" Use mouse (only for resizing!)
+set mouse=a
+ 
+" Set the focus to the correct screen
+set mousefocus
+
+" Do not scroll sideways unless we reach the end of the screen
+set sidescrolloff=0
+
+" Infere the case-sensitivity
+set infercase
+"set smartcase
+
+" Splits
+set splitbelow
+set splitright
+
+" Split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Clipboard
+set clipboard=unnamed
+vmap <C-Ins> "+y<CR>
+nnoremap <S-Ins> "+p<CR>
+
+" Enable folding
+"set foldmethod=indent
+"set foldlevel=99
+
+" Enable folding with the spacebar
+"nnoremap <space> za
+
+" Quick directory change 
+nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
+
+" Make
+nnoremap ,m :make<CR>
+
+" Tags
+set tags=.tags;/
+
+" Useful when you use underscore naming convention
+" set iskeyword-=_
+
+" Highlight the entire word when searching for it
+set hlsearch
+
+" Display line numbers on the left
+" Relative numbers (http://jeffkreeftmeijer.com/2012/relative-line-numbers-in-vim-for-super-fast-movement/)
+set number
+set relativenumber
+au FocusLost * :set number
+au FocusGained * :set relativenumber
+autocmd InsertEnter * :set number
+autocmd InsertLeave * :set relativenumber
+
+set tabstop=4     " a tab is four spaces
+set shiftwidth=4  " number of spaces to use for autoindenting
+set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
+set incsearch     " show search matches as you type
+set expandtab
+set shiftwidth=4
+set softtabstop=4
+
+" History settings
+set history=1000         " remember more commands and search history
+set undolevels=1000      " use many levels of undo
+
+" Indent properly based on the current file
+"filetype indent plugin on
+"#filetype plugin on
+
+" Don't move around in insert mode
+"inoremap <up> <NOP>
+"inoremap <down> <NOP>
+"inoremap <left> <NOP>
+"inoremap <right> <NOP>
+
+"This unsets the "last search pattern" register by hitting return
+nnoremap <CR> :noh<CR><CR>
+
+" Replace selected text
+vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
+
+vnoremap <C-f> "hy:Ag <C-r>h .<CR>
+
+" NetRW browser options
+let g:netrw_browsex_viewer= "xdg-open"
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vundle package manager
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+filetype off
+
+if has('gui_win32')
+	set runtimepath+=~/vimfiles/bundle/vundle
+	set rtp+=$HOME/vimfiles/bundle/Vundle.vim
+	call vundle#begin('$USERPROFILE/vimfiles/bundle/')
+else
+	set rtp+=~/.vim/bundle/Vundle.vim
+	call vundle#begin()
+endif
+
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" Silver Searcher
+Plugin 'rking/ag.vim'
+
+" Gundo.vim is Vim plugin to visualize your Vim undo tree.
+" Plugin 'sjl/gundo.vim' TOOSLOW
+
+" Quoting/parenthesizing made simple
+Plugin 'tpope/vim-surround'
+
+" Vim motion on speed! 
+Plugin 'easymotion/vim-easymotion'
+
+" Lean & mean status/tabline for vim that's light as air
+Plugin 'vim-airline/vim-airline'
+
+" A collection of themes for vim-airline
+Plugin 'vim-airline/vim-airline-themes'
+
+" One colorscheme pack to rule them all! 
+Plugin 'flazz/vim-colorschemes'
+
+" Fuzzy file, buffer, mru, tag, etc finder
+Plugin 'ctrlpvim/ctrlp.vim'
+
+" Enable repeating supported plugin maps with "."
+Plugin 'tpope/vim-repeat'
+
+" Fugitive
+Plugin 'tpope/vim-fugitive'
+
+" Next generation completion framework after neocomplcache
+Plugin 'Shougo/neocomplete.vim'
+
+" Interactive command execution in Vim
+Plugin 'Shougo/vimproc.vim'
+
+" Automated tag file generation and syntax highlighting of tags in Vim
+"Plugin 'xolox/vim-easytags'
+
+" Miscellaneous auto-load Vim scripts
+"Plugin 'xolox/vim-misc'
+ 
+" Unite and create user interfaces
+Plugin 'Shougo/unite.vim'
+
+" Vim script for text filtering and alignment
+Plugin 'godlygeek/tabular'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Color Sheme (http://vimcolors.com/)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+syntax enable
+set background=light
+colorscheme solarized
+
+" Save files before calling make
+set autowrite
+
+" Vim buffer settings
+" This allows buffers to be hidden if you've modified a buffer.
+" This is almost a must if you wish to use buffers in this way.
+set hidden
+
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" User interface options
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if has('gui_running')
+    set guioptions=
+	if has('gui_win32')
+		"set guifont=Source\ Code\ Pro:h10:cRUSSIAN
+        set guifont=Consolas:h10:cRUSSIAN
+	else
+		set guifont=Consolas\ 12
+		"set guifont=Terminus\ 11
+		"set guifont=Liberation\ Mono\ 11
+	endif
+endif
+
+" SaveAll
+nnoremap <F12> :wall<cr>
+nnoremap <F10> :!ctags -R -f .tags .
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Ag
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ag_working_path_mode="r"
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CtrlP
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ctrlp_map = ''
+let g:ctrlp_cmd = 'CtrlP'
+
+" RegEx search mode is default
+let g:ctrlp_regexp = 1
+
+" Match window
+let g:ctrlp_match_window = 'bottom,order:ttb,min:1,max:20,results:20'
+
+" Use a leader instead of the actual named binding
+nmap <leader>p :CtrlP<cr>
+nmap <leader>[ :CtrlPMRU<cr>
+nmap <leader>] :CtrlPBuffer<cr>
+nmap <leader>. :CtrlPQuickfix<cr>
+nmap <leader>= :CtrlPTag<cr>
+
+" Easy bindings for its various modes
+"nmap <leader>] :CtrlPMixed<cr>
+"nmap <leader>r :CtrlPMRU<cr>
+
+" Open selected files as hidden buffers
+let g:ctrlp_open_multiple_files = 'ij'
+
+" Use the nearest .git directory as the cwd
+" This makes a lot of sense if you are working on a project that is in version
+" control. It also supports works with .svn, .hg, .bzr.
+let g:ctrlp_working_path_mode = 'w'
+let g:ctrlp_open_new_file = 'r'
+
+
+if has('win32')
+	set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+	let g:ctrlp_custom_ignore = {
+	  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+	  \ 'file': '\v\.(exe|so|dll)$',
+	  \ 'link': 'some_bad_symbolic_links',
+	  \ }
+else
+	set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+	let g:ctrlp_custom_ignore = {
+	  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+	  \ 'file': '\v\.(exe|so|dll)$',
+	  \ 'link': 'some_bad_symbolic_links',
+	  \ }
+endif
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" AirLine
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '¦'
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+
+set laststatus=2
+let g:airline_theme='light'
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
+nmap <leader>3 <Plug>AirlineSelectTab3
+nmap <leader>4 <Plug>AirlineSelectTab4
+nmap <leader>5 <Plug>AirlineSelectTab5
+nmap <leader>6 <Plug>AirlineSelectTab6
+nmap <leader>7 <Plug>AirlineSelectTab7
+nmap <leader>8 <Plug>AirlineSelectTab8
+nmap <leader>9 <Plug>AirlineSelectTab9
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NeoComplete
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" OmniComplete
+set omnifunc=syntaxcomplete#Complete
+" Don't select first Omni-completion option
+set completeopt=longest,menuone
+set completeopt=menuone,longest
+
+" Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+            \ 'default' : '',
+            \ 'vimshell' : $HOME.'/.vimshell_hist',
+            \ 'scheme' : $HOME.'/.gosh_completions'
+            \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+    return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+    " For no inserting <CR> key.
+    "return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+" AutoComplPop like behavior.
+"let g:neocomplete#enable_auto_select = 1
+
+" Shell like behavior(not recommended).
+"set completeopt+=longest:
+"let g:neocomplete#enable_auto_select = 1
+"let g:neocomplete#disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+" Enable omni completion.
+autocmd FileType cpp,hpp,h,c,cu,cs,cuh,glsl,hlsl,vs,fs,gs,ces,tes setlocal omnifunc=cppcomplete#CompleteCPP
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+    let g:neocomplete#sources#omni#input_patterns = {}
+endif
+"let g:neocomplete#sources#omni#input_patterns.php = '[^.
+"\t]->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:]
+"*\t]\%(\.\|->\)'
+"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:]
+"*\t]\%(\.\|->\)\|\h\w*::'
+
+" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" EasyTags 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Gundo 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"nmap <Leader>u :GundoToggle<CR>
+"let g:gundo_preview_bottom = 1
+"let g:gundo_preview_height = 40
+"let g:gundo_width = 45
+"let g:gundo_right = 1
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" EasyMotion 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" <Leader>f{char} to move to {char}
+map  <Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader>f <Plug>(easymotion-overwin-f)
+
+" s{char}{char} to move to {char}{char}
+"nmap s <Plug>(easymotion-overwin-f2)
+
+" Move to word
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
+
+set makeprg=build_release-x64
+
+au BufRead,BufNewFile *.fs setf cpp
+au BufRead,BufNewFile *.gs setf cpp
+au BufRead,BufNewFile *.vs setf cpp
+au BufRead,BufNewFile *.cs setf cpp
+au BufRead,BufNewFile *.tes setf cpp
+au BufRead,BufNewFile *.ces setf cpp
+au BufRead,BufNewFile *.glsl setf cpp
+au BufRead,BufNewFile *.hlsl setf cpp
+
+nnoremap <C-s> :w<CR>
+nnoremap <C-S-s> :wa<CR>
+
+" stay in the same buffer if it already open
+set switchbuf=useopen,split
+
+" Thanks to https://forums.handmadehero.org/index.php/forum?view=topic&catid=4&id=704#3982
+" error message formats
+"set errorformat=%*\\d>%f(%l)\ :\ %t%[A-z]%#\ %m
+"set errorformat=\ %#%f(%l)\ :\ %#%t%[A-z]%#\ %m
+"set errorformat=%f(%l,%c):\ error\ %n:\ %f
