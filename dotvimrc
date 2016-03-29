@@ -205,6 +205,9 @@ Plugin 'Shougo/unite.vim'
 " Vim script for text filtering and alignment
 Plugin 'godlygeek/tabular'
 
+" Open quickfix windows where you want
+Plugin 'yssl/QFEnter'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
