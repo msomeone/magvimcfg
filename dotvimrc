@@ -38,6 +38,7 @@ endif
 
 set iminsert=0
 set imsearch=0
+set backspace=indent,eol,start
 
 " Source project files
 set exrc
@@ -85,7 +86,7 @@ nnoremap <S-Ins> "+p<CR>
 nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
 
 " Make
-nnoremap ,m :make<CR>
+nnoremap ,m :Make<CR>
 
 " Tags
 set tags=.tags;/
@@ -207,6 +208,9 @@ Plugin 'godlygeek/tabular'
 
 " Open quickfix windows where you want
 Plugin 'yssl/QFEnter'
+
+" Async Dispatch
+Plugin 'tpope/vim-dispatch'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
