@@ -214,6 +214,9 @@ Plugin 'yssl/QFEnter'
 " Async Dispatch
 Plugin 'tpope/vim-dispatch'
 
+" Nerd Tree
+Plugin 'scrooloose/nerdtree'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -254,6 +257,11 @@ endif
 " SaveAll
 nnoremap <F12> :wall<cr>
 nnoremap <F10> :!ctags -R -f .tags .
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NERDTree
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <F8> :NERDTreeToggle<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ag
