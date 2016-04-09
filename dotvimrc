@@ -258,6 +258,9 @@ endif
 nnoremap <F12> :wall<cr>
 nnoremap <F10> :!ctags -R -f .tags .
 
+" Show quickfix list
+nnoremap <F7> :copen 40<cr>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NERDTree
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
